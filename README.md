@@ -241,6 +241,20 @@ The application uses several configuration files:
 
 The application includes a health check endpoint at `/api/health` that monitors server status.
 
+## Backup Script
+
+The project includes a backup script (`backup.sh`) that creates dated backups of the project state in GitHub. To create a backup:
+
+```bash
+./backup.sh
+```
+
+The script will:
+- Create a new branch with today's date
+- Add all changes
+- Commit and push to GitHub
+- Switch back to the main branch
+
 ---
 
 *Documentation last updated: June 2, 2025* 
