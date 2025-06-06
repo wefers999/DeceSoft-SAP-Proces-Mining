@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<Response>
+	<Language>EN</Language>
+	<Process id="O2C">Order to Cash</Process>
+	<Product id="ERP">SAP ERP618</Product>
+	<InstallationNo>0020701049</InstallationNo>
+	<SystemId>ER6</SystemId>
+	<Client>800</Client>
+	<TimeZone>CET</TimeZone>
+	<Dictionary/>
+	<Cases>
+		<Case id="C-0000019069">
+			<DocGroup>
+				<Entity id="C">Order</Entity>
+				<Document id="0000019069"/>
+			</DocGroup>
+		</Case>
+		<Case id="B-0020000271">
+			<DocGroup>
+				<Entity id="C">Order</Entity>
+				<Document id="0000019068">
+					<PrecEntity>B</PrecEntity>
+					<PrecDocNo>0020000271</PrecDocNo>
+				</Document>
+			</DocGroup>
+			<DocGroup>
+				<Entity id="B">Quotation</Entity>
+				<Document id="0020000271"/>
+			</DocGroup>
+			<DocGroup>
+				<Entity id="J">Delivery</Entity>
+				<Document id="0080018917">
+					<PrecEntity>C</PrecEntity>
+					<PrecDocNo>0000019068</PrecDocNo>
+				</Document>
+			</DocGroup>
+		</Case>
+		<Case id="B-0020000272">
+			<DocGroup>
+				<Entity id="B">Quotation</Entity>
+				<Document id="0020000272"/>
+			</DocGroup>
+		</Case>
+		<Case id="B-0020000273">
+			<DocGroup>
+				<Entity id="C">Order</Entity>
+				<Document id="0000019070">
+					<PrecEntity>B</PrecEntity>
+					<PrecDocNo>0020000273</PrecDocNo>
+				</Document>
+				<Document id="0000019071">
+					<PrecEntity>B</PrecEntity>
+					<PrecDocNo>0020000273</PrecDocNo>
+				</Document>
+			</DocGroup>
+			<DocGroup>
+				<Entity id="B">Quotation</Entity>
+				<Document id="0020000273"/>
+			</DocGroup>
+		</Case>
+		<Case id="B-0020000274">
+			<DocGroup>
+				<Entity id="C">Order</Entity>
+				<Document id="0000019072">
+					<PrecEntity>B</PrecEntity>
+					<PrecDocNo>0020000274</PrecDocNo>
+				</Document>
+			</DocGroup>
+			<DocGroup>
+				<Entity id="B">Quotation</Entity>
+				<Document id="0020000274"/>
+			</DocGroup>
+		</Case>
+	</Cases>
+</Response>

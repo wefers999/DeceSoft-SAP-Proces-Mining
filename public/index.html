@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeceSoft - SAP Process Data for Process Mining</title>
+    <style>
+        :root {
+            --color-header: rgb(0, 88, 95);
+            --color-button: rgb(0, 109, 119);
+            --color-error: rgb(220, 53, 69);
+            --color-success: rgb(40, 167, 69);
+        }
+        
+        * { box-sizing: border-box; }
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--color-header);
+            color: white;
+            padding: 1rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .metadata {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            padding: 1rem;
+        }
+
+        .metadata-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr) auto;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .metadata-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .metadata-label {
+            font-weight: bold;
+            color: var(--color-header);
+            font-size: 0.9rem;
+        }
+
+        .metadata-value {
+            color: #495057;
+        }
+
+        .metadata-id {
+            color: #6c757d;
+            font-size: 0.9em;
+            margin-left: 0.5em;
+        }
+
+        .logo { height: 50px; }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            background-color: var(--color-button);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: filter 0.2s;
+        }
+        
+        button:hover:not(:disabled) { filter: brightness(110%); }
+        button:disabled { opacity: 0.7; cursor: not-allowed; }
+        button:focus { outline: 3px solid rgba(0, 109, 119, 0.5); }
+        
+        #content {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            min-height: 200px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        .error-message {
+            color: var(--color-error);
+            border: 1px solid currentColor;
+            background-color: rgba(220, 53, 69, 0.1);
+        }
+
+        .success-message {
+            color: var(--color-success);
+            border: 1px solid currentColor;
+            background-color: rgba(40, 167, 69, 0.1);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+            border: 2px solid var(--color-button);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        [data-tooltip] {
+            position: relative;
+        }
+
+        [data-tooltip]:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 5px 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border-radius: 4px;
+            font-size: 14px;
+            white-space: nowrap;
+            z-index: 1;
+        }
+
+        .metadata-button {
+            padding: 8px 16px;
+            background-color: var(--color-button);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: filter 0.2s;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .metadata-button:hover {
+            filter: brightness(110%);
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            overflow-y: auto; /* Enable scrolling on the modal overlay */
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: #fff;
+            margin: 40px auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 1000px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-height: 85vh;
+            overflow-y: auto; /* Enable scrolling in the modal content */
+        }
+
+        .close-button {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .close-button:hover {
+            color: #333;
+        }
+
+        .file-list {
+            margin-top: 20px;
+        }
+
+        .file-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            border-left: 4px solid var(--color-header);
+        }
+
+        .file-name {
+            font-weight: bold;
+            color: var(--color-header);
+            margin-bottom: 8px;
+        }
+
+        .file-purpose {
+            color: #495057;
+            line-height: 1.5;
+        }
+
+        .process-info {
+            margin-top: 20px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            padding: 15px;
+        }
+
+        .process-section {
+            margin-bottom: 20px;
+        }
+
+        .process-section h4 {
+            color: var(--color-header);
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .process-step {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 4px;
+            border-left: 4px solid var(--color-header);
+        }
+
+        .step-title {
+            font-weight: bold;
+            color: var(--color-header);
+            margin-bottom: 5px;
+        }
+
+        .step-details {
+            padding-left: 15px;
+        }
+
+        .step-details p {
+            margin: 5px 0;
+            color: #495057;
+            font-size: 0.9em;
+        }
+
+        .table-fields {
+            margin-top: 10px;
+            padding-left: 15px;
+            font-family: monospace;
+            font-size: 0.85em;
+        }
+
+        .table-fields ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 5px 0;
+            columns: 2;
+            column-gap: 20px;
+        }
+
+        .table-fields li {
+            margin-bottom: 3px;
+            break-inside: avoid-column;
+            color: #495057;
+        }
+
+        .table-name {
+            font-weight: bold;
+            color: #006d77;  /* Using the app's primary color */
+            margin-top: 12px;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .field-legend {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            display: flex;
+            gap: 20px;
+            font-size: 0.9em;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>DeceSoft - SAP Process Data for Process Mining</h1>
+            <img src="/images/DeceSoft_RGB.jpg" alt="DeceSoft Logo" class="logo">
+        </div>
+    </header>
+    
+    <div class="metadata">
+        <div class="metadata-content">
+            <div class="metadata-item">
+                <span class="metadata-label">Business Process</span>
+                <span class="metadata-value" id="business-process">Order to Cash</span>
+            </div>
+            <div class="metadata-item">
+                <span class="metadata-label">SAP Product</span>
+                <span class="metadata-value">SAP ERP618</span>
+            </div>
+            <div class="metadata-item">
+                <span class="metadata-label">System</span>
+                <span class="metadata-value">ER6</span>
+            </div>
+            <div class="metadata-item">
+                <span class="metadata-label">Client</span>
+                <span class="metadata-value">800</span>
+            </div>
+            <div class="metadata-item">
+                <span class="metadata-label">Date</span>
+                <span class="metadata-value" id="current-date"></span>
+            </div>
+            <button class="metadata-button" onclick="openModal()">DeceSoft backend service</button>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="fileModal" class="modal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal()">&times;</button>
+            <h2 style="color: var(--color-header); margin-top: 0;">DeceSoft Backend Service</h2>
+            
+            <h3 style="color: var(--color-header);">SAP Tables, Fields, Transactions</h3>
+            <div class="process-info">
+                <div class="process-section">
+                    <h4>Process Steps</h4>
+                    <div class="process-step">
+                        <div class="step-title">Quotation (B)</div>
+                        <div class="step-details">
+                            <p>Tables: VBAK (Header), VBAP (Items)</p>
+                            <p>Transactions: VA21 (Create), VA22 (Change)</p>
+                            <div class="table-fields">
+                                <div class="table-name">VBAK (Header):</div>
+                                <ul>
+                                    <li>VBELN - Document Number (Key)</li>
+                                    <li>VBTYP - Document Category</li>
+                                    <li>UPD_TMSTMP - Last Changed On</li>
+                                    <li>ERDAT - Created On</li>
+                                    <li>ERZET - Time Created</li>
+                                    <li>ERNAM - Created By</li>
+                                    <li>AUART - Sales Document Type</li>
+                                    <li>AUDAT - Document Date</li>
+                                </ul>
+                                <div class="table-name">VBAP (Items):</div>
+                                <ul>
+                                    <li>VBELN - Document Number (Key)</li>
+                                    <li>POSNR - Item Number (Key)</li>
+                                    <li>MATNR - Material Number</li>
+                                    <li>MATKL - Material Group</li>
+                                    <li>MEINS - Base Unit of Measure</li>
+                                    <li>NETPR - Net Price</li>
+                                    <li>NETWR - Net Value</li>
+                                    <li>SMENG - Scale Quantity</li>
+                                    <li>ERDAT - Created On</li>
+                                    <li>ERZET - Time Created</li>
+                                    <li>ERNAM - Created By</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-title">Sales Order (C)</div>
+                        <div class="step-details">
+                            <p>Tables: VBAK (Header), VBAP (Items)</p>
+                            <p>Transactions: VA01 (Create), VA02 (Change)</p>
+                            <div class="table-fields">
+                                <div class="table-name">Same tables and fields as Quotation</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-title">Delivery (J)</div>
+                        <div class="step-details">
+                            <p>Tables: LIKP (Header), LIPS (Items)</p>
+                            <p>Transactions: VL01 (Create), VL02 (Change)</p>
+                            <div class="table-fields">
+                                <div class="table-name">LIKP (Header):</div>
+                                <ul>
+                                    <li>VBELN - Delivery (Key)</li>
+                                    <li>VBTYP - Document Category</li>
+                                    <li>AEDAT - Changed On</li>
+                                    <li>ERDAT - Created On</li>
+                                    <li>ERZET - Time Created</li>
+                                    <li>ERNAM - Created By</li>
+                                    <li>LFDAT - Delivery Date</li>
+                                    <li>LFART - Delivery Type</li>
+                                </ul>
+                                <div class="table-name">LIPS (Items):</div>
+                                <ul>
+                                    <li>VBELN - Delivery (Key)</li>
+                                    <li>POSNR - Item Number (Key)</li>
+                                    <li>MATKL - Material Group</li>
+                                    <li>LFIMG - Delivery Quantity</li>
+                                    <li>VRKME - Sales Unit</li>
+                                    <li>NETPR - Net Price</li>
+                                    <li>NETWR - Net Value</li>
+                                    <li>MATNR - Material</li>
+                                    <li>ERDAT - Created On</li>
+                                    <li>ERZET - Time Created</li>
+                                    <li>ERNAM - Created By</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-title">Invoice (M)</div>
+                        <div class="step-details">
+                            <p>Tables: VBRK (Header), VBRP (Items)</p>
+                            <p>Transactions: VF01 (Create), VF02 (Change)</p>
+                            <div class="table-fields">
+                                <div class="table-name">VBRK (Header):</div>
+                                <ul>
+                                    <li>VBELN - Document Number (Key)</li>
+                                    <li>VBTYP - Document Category</li>
+                                    <li>AEDAT - Changed On</li>
+                                    <li>ERDAT - Created On</li>
+                                    <li>ERZET - Time Created</li>
+                                    <li>ERNAM - Created By</li>
+                                    <li>FKDAT - Billing Date</li>
+                                    <li>FKART - Billing Type</li>
+                                </ul>
+                                <div class="table-name">VBRP (Items):</div>
+                                <ul>
+                                    <li>VBELN - Document Number (Key)</li>
+                                    <li>POSNR - Item Number (Key)</li>
+                                    <li>Similar fields as other item tables (MATNR, MATKL, etc.)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="color: var(--color-header); margin-top: 20px;">XML Data Files</h3>
+            <div class="file-list">
+                <div class="file-item">
+                    <div class="file-name">0_O2CERPProcessDefinition.xml</div>
+                    <div class="file-purpose">Process definition file that contains the structure and configuration of the Order to Cash (O2C) process in SAP ERP.</div>
+                </div>
+                <div class="file-item">
+                    <div class="file-name">1_Response20230320_Cases.XML</div>
+                    <div class="file-purpose">Contains the main case data for the O2C process, including case IDs and their basic information.</div>
+                </div>
+                <div class="file-item">
+                    <div class="file-name">2_Response20230320_Cases_Events.XML</div>
+                    <div class="file-purpose">Stores event data related to each case, tracking various activities and state changes in the process.</div>
+                </div>
+                <div class="file-item">
+                    <div class="file-name">3_Response20230320_Cases_Messages.XML</div>
+                    <div class="file-purpose">Contains message logs and communication data associated with the cases in the O2C process.</div>
+                </div>
+                <div class="file-item">
+                    <div class="file-name">4_Response20230320_Cases_DocDetails.XML</div>
+                    <div class="file-purpose">Provides detailed document information and attributes for each case in the process.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="button-container">
+            <button onclick="fetchCases()" data-tooltip="View SAP Cases Data">1. Case-IDs</button>
+            <button onclick="fetchEvents()" data-tooltip="View SAP Cases with Events">2. Case-ID, Entity, Event</button>
+            <button onclick="fetchMessages()" data-tooltip="View SAP Cases with Messages">3. Case-ID, Entity, Document, Message</button>
+            <button onclick="fetchDocDetails()" data-tooltip="View SAP Document Details">4. Case ID, Documents, Tables, Fields</button>
+        </div>
+        <div id="content" role="region" aria-live="polite" tabindex="0">
+            Select a file to view its contents.
+        </div>
+    </div>
+
+    <script>
+        // Format current date
+        const dateElement = document.getElementById('current-date');
+        const currentDate = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        dateElement.textContent = currentDate.toLocaleDateString('en-US', options);
+
+        // Store for application data
+        const store = {
+            currentData: null
+        };
+
+        // Define entity order and names
+        const entityOrder = ['B', 'C', 'J', 'M'];
+        const entityNames = {
+            'B': 'Quotation',
+            'C': 'Order',
+            'J': 'Delivery',
+            'M': 'Invoice'
+        };
+
+        // UI helper functions
+        const ui = {
+            content: document.getElementById('content'),
+            
+            setLoading(isLoading) {
+                document.querySelectorAll('button').forEach(btn => btn.disabled = isLoading);
+                this.content.className = isLoading ? 'loading' : '';
+                if (isLoading) this.content.textContent = 'Loading data...';
+            },
+
+            showMessage(text, isError = false) {
+                this.content.className = isError ? 'error-message' : 'success-message';
+                this.content.textContent = text;
+            },
+
+            displayCaseIds(data) {
+                try {
+                    if (!data?.Response?.Cases?.Case) {
+                        this.showMessage('No cases found in the data', true);
+                        return;
+                    }
+
+                    // Ensure Case is always an array
+                    const cases = Array.isArray(data.Response.Cases.Case) 
+                        ? data.Response.Cases.Case 
+                        : [data.Response.Cases.Case];
+
+                    // Create list container
+                    const list = document.createElement('div');
+                    list.style.marginTop = '20px';
+                    list.style.fontFamily = 'monospace';
+
+                    // Add header
+                    const header = document.createElement('div');
+                    header.style.backgroundColor = 'var(--color-header)';
+                    header.style.color = 'white';
+                    header.style.padding = '10px';
+                    header.style.borderRadius = '4px 4px 0 0';
+                    header.textContent = `Case IDs (${cases.length} found)`;
+                    list.appendChild(header);
+
+                    // Add case IDs and entities
+                    const idsContainer = document.createElement('div');
+                    idsContainer.style.border = '1px solid #ddd';
+                    idsContainer.style.borderTop = 'none';
+                    idsContainer.style.borderRadius = '0 0 4px 4px';
+                    idsContainer.style.padding = '10px';
+                    idsContainer.style.backgroundColor = '#f8f9fa';
+
+                    cases.forEach(caseItem => {
+                        const caseContainer = document.createElement('div');
+                        caseContainer.style.padding = '10px';
+                        caseContainer.style.borderBottom = '1px solid #eee';
+                        caseContainer.style.marginBottom = '5px';
+
+                        // Add Case ID
+                        const idElement = document.createElement('div');
+                        idElement.style.fontWeight = 'bold';
+                        idElement.style.color = 'var(--color-header)';
+                        idElement.textContent = caseItem['@_id'];
+                        caseContainer.appendChild(idElement);
+
+                        // Create entity info line
+                        const entityLine = document.createElement('div');
+                        entityLine.style.paddingLeft = '20px';
+                        entityLine.style.color = '#666';
+                        entityLine.style.fontSize = '0.9em';
+
+                        // Create a map of entities from DocGroups
+                        const entityMap = new Map();
+                        if (caseItem.DocGroup) {
+                            const docGroups = Array.isArray(caseItem.DocGroup) 
+                                ? caseItem.DocGroup 
+                                : [caseItem.DocGroup];
+
+                            docGroups.forEach(docGroup => {
+                                if (docGroup.Entity) {
+                                    const entityId = docGroup.Entity['@_id'];
+                                    // Handle multiple documents for the same entity
+                                    if (Array.isArray(docGroup.Document)) {
+                                        const docIds = docGroup.Document.map(doc => doc['@_id']).join(', ');
+                                        entityMap.set(entityId, docIds);
+                                    } else {
+                                        const docId = docGroup.Document['@_id'] || docGroup.Document;
+                                        entityMap.set(entityId, docId);
+                                    }
+                                }
+                            });
+                        }
+
+                        // Build entity string in correct order
+                        const entityParts = entityOrder.map(entityId => {
+                            const docId = entityMap.get(entityId);
+                            if (docId) {
+                                return `${entityNames[entityId]} (${docId})`;
+                            }
+                            return null;
+                        }).filter(Boolean);
+
+                        entityLine.textContent = entityParts.join(' → ');
+                        if (entityParts.length > 0) {
+                            caseContainer.appendChild(entityLine);
+                        }
+
+                        idsContainer.appendChild(caseContainer);
+                    });
+
+                    list.appendChild(idsContainer);
+
+                    // Clear previous content and add list
+                    this.content.className = '';
+                    this.content.innerHTML = '';
+                    this.content.appendChild(list);
+                } catch (error) {
+                    this.showMessage(`Error displaying Case IDs: ${error.message}`, true);
+                }
+            },
+
+            displayEvents(data) {
+                try {
+                    if (!data?.Response?.Cases?.Case) {
+                        this.showMessage('No cases found in the data', true);
+                        return;
+                    }
+
+                    const cases = Array.isArray(data.Response.Cases.Case) 
+                        ? data.Response.Cases.Case 
+                        : [data.Response.Cases.Case];
+
+                    const list = document.createElement('div');
+                    list.style.marginTop = '20px';
+                    list.style.fontFamily = 'monospace';
+
+                    // Add header
+                    const header = document.createElement('div');
+                    header.style.backgroundColor = 'var(--color-header)';
+                    header.style.color = 'white';
+                    header.style.padding = '10px';
+                    header.style.borderRadius = '4px 4px 0 0';
+                    header.textContent = `Cases with Events (${cases.length} found)`;
+                    list.appendChild(header);
+
+                    const eventsContainer = document.createElement('div');
+                    eventsContainer.style.border = '1px solid #ddd';
+                    eventsContainer.style.borderTop = 'none';
+                    eventsContainer.style.borderRadius = '0 0 4px 4px';
+                    eventsContainer.style.padding = '10px';
+                    eventsContainer.style.backgroundColor = '#f8f9fa';
+
+                    cases.forEach(caseItem => {
+                        const caseContainer = document.createElement('div');
+                        caseContainer.style.padding = '10px';
+                        caseContainer.style.borderBottom = '1px solid #eee';
+                        caseContainer.style.marginBottom = '10px';
+
+                        // Add Case ID
+                        const idElement = document.createElement('div');
+                        idElement.style.fontWeight = 'bold';
+                        idElement.style.color = 'var(--color-header)';
+                        idElement.textContent = caseItem['@_id'];
+                        caseContainer.appendChild(idElement);
+
+                        if (caseItem.DocGroup) {
+                            const docGroups = Array.isArray(caseItem.DocGroup) 
+                                ? caseItem.DocGroup 
+                                : [caseItem.DocGroup];
+
+                            docGroups.forEach(docGroup => {
+                                if (docGroup.Entity) {
+                                    const entityId = docGroup.Entity['@_id'];
+                                    const entityName = entityNames[entityId];
+                                    const documents = Array.isArray(docGroup.Document) 
+                                        ? docGroup.Document 
+                                        : [docGroup.Document];
+
+                                    documents.forEach(doc => {
+                                        const docId = doc['@_id'];
+                                        const entityLine = document.createElement('div');
+                                        entityLine.style.paddingLeft = '20px';
+                                        entityLine.style.color = '#666';
+                                        entityLine.style.fontSize = '0.9em';
+                                        entityLine.style.marginTop = '5px';
+
+                                        // Add entity and document info
+                                        entityLine.textContent = `${entityName} (${docId})`;
+                                        caseContainer.appendChild(entityLine);
+
+                                        // Add events for header
+                                        if (doc.Header?.Events?.Event) {
+                                            const events = Array.isArray(doc.Header.Events.Event)
+                                                ? doc.Header.Events.Event
+                                                : [doc.Header.Events.Event];
+
+                                            events.forEach(event => {
+                                                const eventLine = document.createElement('div');
+                                                eventLine.style.paddingLeft = '40px';
+                                                eventLine.style.color = '#888';
+                                                eventLine.style.fontSize = '0.85em';
+                                                
+                                                // Create event type span with color
+                                                const eventTypeSpan = document.createElement('span');
+                                                eventTypeSpan.style.color = event['@_type'] === 'Create' ? '#2ecc71' : '#e67e22';
+                                                eventTypeSpan.style.fontWeight = 'bold';
+                                                eventTypeSpan.textContent = event['@_type'];
+                                                
+                                                // Create the rest of the text
+                                                const restOfText = document.createTextNode(
+                                                    ` - ${event['@_ts']} - ${event['@_transaction']} - User: ${event['@_user']}`
+                                                );
+                                                
+                                                // Append both parts
+                                                eventLine.appendChild(eventTypeSpan);
+                                                eventLine.appendChild(restOfText);
+                                                
+                                                caseContainer.appendChild(eventLine);
+                                            });
+                                        }
+
+                                        // Add events for items
+                                        if (doc.Items?.Item) {
+                                            const items = Array.isArray(doc.Items.Item)
+                                                ? doc.Items.Item
+                                                : [doc.Items.Item];
+
+                                            items.forEach(item => {
+                                                if (item.Events?.Event) {
+                                                    const itemEvents = Array.isArray(item.Events.Event)
+                                                        ? item.Events.Event
+                                                        : [item.Events.Event];
+
+                                                    const itemLine = document.createElement('div');
+                                                    itemLine.style.paddingLeft = '40px';
+                                                    itemLine.style.color = '#888';
+                                                    itemLine.style.fontSize = '0.85em';
+                                                    itemLine.textContent = `Item ${item['@_id']}:`;
+                                                    caseContainer.appendChild(itemLine);
+
+                                                    itemEvents.forEach(event => {
+                                                        const eventLine = document.createElement('div');
+                                                        eventLine.style.paddingLeft = '60px';
+                                                        eventLine.style.color = '#888';
+                                                        eventLine.style.fontSize = '0.85em';
+                                                        
+                                                        // Create event type span with color
+                                                        const eventTypeSpan = document.createElement('span');
+                                                        eventTypeSpan.style.color = event['@_type'] === 'Create' ? '#2ecc71' : '#e67e22';
+                                                        eventTypeSpan.style.fontWeight = 'bold';
+                                                        eventTypeSpan.textContent = event['@_type'];
+                                                        
+                                                        // Create the rest of the text
+                                                        const restOfText = document.createTextNode(
+                                                            ` - ${event['@_ts']} - ${event['@_transaction']} - User: ${event['@_user']}`
+                                                        );
+                                                        
+                                                        // Append both parts
+                                                        eventLine.appendChild(eventTypeSpan);
+                                                        eventLine.appendChild(restOfText);
+                                                        
+                                                        caseContainer.appendChild(eventLine);
+                                                    });
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+
+                        eventsContainer.appendChild(caseContainer);
+                    });
+
+                    list.appendChild(eventsContainer);
+
+                    // Clear previous content and add list
+                    this.content.className = '';
+                    this.content.innerHTML = '';
+                    this.content.appendChild(list);
+                } catch (error) {
+                    this.showMessage(`Error displaying events: ${error.message}`, true);
+                }
+            },
+
+            displayMessages(data) {
+                try {
+                    if (!data?.Response?.Cases?.Case) {
+                        this.showMessage('No cases found in the data', true);
+                        return;
+                    }
+
+                    const cases = Array.isArray(data.Response.Cases.Case) 
+                        ? data.Response.Cases.Case 
+                        : [data.Response.Cases.Case];
+
+                    const list = document.createElement('div');
+                    list.style.marginTop = '20px';
+                    list.style.fontFamily = 'monospace';
+
+                    // Add header
+                    const header = document.createElement('div');
+                    header.style.backgroundColor = 'var(--color-header)';
+                    header.style.color = 'white';
+                    header.style.padding = '10px';
+                    header.style.borderRadius = '4px 4px 0 0';
+                    header.textContent = `Cases with Messages (${cases.length} found)`;
+                    list.appendChild(header);
+
+                    const messagesContainer = document.createElement('div');
+                    messagesContainer.style.border = '1px solid #ddd';
+                    messagesContainer.style.borderTop = 'none';
+                    messagesContainer.style.borderRadius = '0 0 4px 4px';
+                    messagesContainer.style.padding = '10px';
+                    messagesContainer.style.backgroundColor = '#f8f9fa';
+
+                    cases.forEach(caseItem => {
+                        const caseContainer = document.createElement('div');
+                        caseContainer.style.padding = '10px';
+                        caseContainer.style.borderBottom = '1px solid #eee';
+                        caseContainer.style.marginBottom = '10px';
+
+                        // Add Case ID
+                        const idElement = document.createElement('div');
+                        idElement.style.fontWeight = 'bold';
+                        idElement.style.color = 'var(--color-header)';
+                        idElement.textContent = caseItem['@_id'];
+                        caseContainer.appendChild(idElement);
+
+                        if (caseItem.DocGroup) {
+                            const docGroups = Array.isArray(caseItem.DocGroup) 
+                                ? caseItem.DocGroup 
+                                : [caseItem.DocGroup];
+
+                            // Create a map to store entities and their documents with messages
+                            const entityMap = new Map();
+                            
+                            docGroups.forEach(docGroup => {
+                                if (docGroup.Entity) {
+                                    const entityId = docGroup.Entity['@_id'];
+                                    const documents = Array.isArray(docGroup.Document) 
+                                        ? docGroup.Document 
+                                        : [docGroup.Document];
+                                    entityMap.set(entityId, { 
+                                        name: entityNames[entityId],
+                                        documents: documents
+                                    });
+                                }
+                            });
+
+                            // Display entities in correct sequence
+                            entityOrder.forEach(entityId => {
+                                const entityData = entityMap.get(entityId);
+                                if (entityData) {
+                                    entityData.documents.forEach(doc => {
+                                        const docId = doc['@_id'];
+                                        const entityLine = document.createElement('div');
+                                        entityLine.style.paddingLeft = '20px';
+                                        entityLine.style.color = '#666';
+                                        entityLine.style.fontSize = '0.9em';
+                                        entityLine.style.marginTop = '5px';
+                                        entityLine.textContent = `${entityData.name} (${docId})`;
+                                        caseContainer.appendChild(entityLine);
+
+                                        // Add messages for header
+                                        if (doc.Header?.Messages?.Message) {
+                                            const messages = Array.isArray(doc.Header.Messages.Message)
+                                                ? doc.Header.Messages.Message
+                                                : [doc.Header.Messages.Message];
+
+                                            messages.forEach(message => {
+                                                const messageLine = document.createElement('div');
+                                                messageLine.style.paddingLeft = '40px';
+                                                messageLine.style.color = '#888';
+                                                messageLine.style.fontSize = '0.85em';
+
+                                                // Create message type span with color
+                                                const messageTypeSpan = document.createElement('span');
+                                                messageTypeSpan.style.color = '#3498db';  // Blue color for message types
+                                                messageTypeSpan.style.fontWeight = 'bold';
+                                                messageTypeSpan.textContent = message['@_type'];
+
+                                                // Create the rest of the text
+                                                const restOfText = document.createTextNode(
+                                                    ` - ${message['@_ts']} - User: ${message['@_user']}`
+                                                );
+
+                                                // Add partner info if available
+                                                const partnerInfo = message.DataTable?.Fields?.Field?.find(
+                                                    f => f['@_id'] === 'PARNR' && f['#text']
+                                                );
+                                                if (partnerInfo) {
+                                                    restOfText.textContent += ` - Partner: ${partnerInfo['#text']}`;
+                                                }
+
+                                                // Append both parts
+                                                messageLine.appendChild(messageTypeSpan);
+                                                messageLine.appendChild(restOfText);
+                                                caseContainer.appendChild(messageLine);
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+
+                        messagesContainer.appendChild(caseContainer);
+                    });
+
+                    list.appendChild(messagesContainer);
+
+                    // Clear previous content and add list
+                    this.content.className = '';
+                    this.content.innerHTML = '';
+                    this.content.appendChild(list);
+                } catch (error) {
+                    this.showMessage(`Error displaying messages: ${error.message}`, true);
+                }
+            }
+        };
+
+        async function fetchCases() {
+            try {
+                ui.setLoading(true);
+                const response = await fetch('/api/data/cases');
+                if (!response.ok) throw new Error('Failed to fetch cases');
+                const data = await response.json();
+                ui.displayCaseIds(data);
+            } catch (error) {
+                ui.showMessage('Error fetching cases: ' + error.message, true);
+            } finally {
+                ui.setLoading(false);
+            }
+        }
+
+        async function fetchEvents() {
+            try {
+                ui.setLoading(true);
+                const response = await fetch('/api/data/events');
+                if (!response.ok) throw new Error('Failed to fetch events');
+                const data = await response.json();
+                ui.displayEvents(data);
+            } catch (error) {
+                ui.showMessage('Error fetching events: ' + error.message, true);
+            } finally {
+                ui.setLoading(false);
+            }
+        }
+
+        async function fetchMessages() {
+            try {
+                ui.setLoading(true);
+                const response = await fetch('/api/data/messages');
+                if (!response.ok) throw new Error('Failed to fetch messages');
+                const data = await response.json();
+                ui.displayMessages(data);
+            } catch (error) {
+                ui.showMessage('Error fetching messages: ' + error.message, true);
+            } finally {
+                ui.setLoading(false);
+            }
+        }
+
+        async function fetchDocDetails() {
+            try {
+                ui.setLoading(true);
+                const response = await fetch('/api/data/docDetails');
+                if (!response.ok) throw new Error('Failed to fetch document details');
+                const data = await response.json();
+                
+                let html = '<div style="font-family: monospace; white-space: pre-wrap;">';
+                
+                // Entity name mapping
+                const entityNames = {
+                    'B': 'Quotation',
+                    'C': 'Sales Order',
+                    'J': 'Delivery',
+                    'M': 'Invoice'
+                };
+                
+                if (data.Cases?.Case) {
+                    const cases = Array.isArray(data.Cases.Case) ? data.Cases.Case : [data.Cases.Case];
+                    
+                    cases.forEach(caseItem => {
+                        if (caseItem.DocGroup) {
+                            const docGroups = Array.isArray(caseItem.DocGroup) ? caseItem.DocGroup : [caseItem.DocGroup];
+                            
+                            docGroups.forEach(docGroup => {
+                                if (docGroup.Entity && docGroup.Document) {
+                                    const entityId = docGroup.Entity['@_id'] || docGroup.Entity;
+                                    const entityName = entityNames[entityId] || entityId;
+                                    const documents = Array.isArray(docGroup.Document) ? docGroup.Document : [docGroup.Document];
+                                    
+                                    documents.forEach(doc => {
+                                        // Display Case ID, Entity Name, Document ID
+                                        html += `\nCase ID: ${caseItem['@_id']}, Entity: ${entityName}, Document: ${doc['@_id'] || doc}\n`;
+                                        
+                                        // Display predecessor info if available
+                                        if (doc.PrecEntity && doc.PrecDocNo) {
+                                            const precEntityName = entityNames[doc.PrecEntity] || doc.PrecEntity;
+                                            html += `Predecessor: ${precEntityName} (${doc.PrecDocNo})\n`;
+                                        }
+                                        
+                                        // Process Header Tables
+                                        if (doc.Header?.DataTables?.DataTable) {
+                                            const tables = Array.isArray(doc.Header.DataTables.DataTable) 
+                                                ? doc.Header.DataTables.DataTable 
+                                                : [doc.Header.DataTables.DataTable];
+                                            
+                                            tables.forEach(table => {
+                                                html += `\nTable: <span style="color: #006d77; font-weight: bold;">${table['@_id']}</span>\n`;
+                                                
+                                                if (table.Fields?.Field) {
+                                                    const fields = Array.isArray(table.Fields.Field) 
+                                                        ? table.Fields.Field 
+                                                        : [table.Fields.Field];
+                                                    
+                                                    fields.forEach(field => {
+                                                        const fieldValue = field['#text'] || field;
+                                                        html += `  ${field['@_id']}: ${fieldValue}\n`;
+                                                    });
+                                                }
+                                            });
+                                        }
+                                        
+                                        // Process Header Tables directly under Header
+                                        if (doc.Header?.DataTable) {
+                                            const headerTables = Array.isArray(doc.Header.DataTable) 
+                                                ? doc.Header.DataTable 
+                                                : [doc.Header.DataTable];
+                                            
+                                            headerTables.forEach(table => {
+                                                html += `\nTable: <span style="color: #006d77; font-weight: bold;">${table['@_id']}</span>\n`;
+                                                
+                                                if (table.Fields?.Field) {
+                                                    const fields = Array.isArray(table.Fields.Field) 
+                                                        ? table.Fields.Field 
+                                                        : [table.Fields.Field];
+                                                    
+                                                    fields.forEach(field => {
+                                                        const fieldValue = field['#text'] || field;
+                                                        html += `  ${field['@_id']}: ${fieldValue}\n`;
+                                                    });
+                                                }
+                                            });
+                                        }
+                                        
+                                        // Process Items
+                                        if (doc.Items?.Item) {
+                                            const items = Array.isArray(doc.Items.Item) ? doc.Items.Item : [doc.Items.Item];
+                                            
+                                            items.forEach(item => {
+                                                if (item.DataTable) {
+                                                    const tables = Array.isArray(item.DataTable) 
+                                                        ? item.DataTable 
+                                                        : [item.DataTable];
+                                                    
+                                                    tables.forEach(table => {
+                                                        html += `\nTable: <span style="color: #006d77; font-weight: bold;">${table['@_id']}</span>\n`;
+                                                        
+                                                        if (table.Fields?.Field) {
+                                                            const fields = Array.isArray(table.Fields.Field) 
+                                                                ? table.Fields.Field 
+                                                                : [table.Fields.Field];
+                                                            
+                                                            fields.forEach(field => {
+                                                                const fieldValue = field['#text'] || field;
+                                                                html += `  ${field['@_id']}: ${fieldValue}\n`;
+                                                            });
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                        }
+                                        
+                                        html += '\n' + '-'.repeat(80) + '\n'; // Separator between documents
+                                    });
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    html += 'No cases found in the data';
+                }
+                
+                html += '</div>';
+                ui.content.className = '';
+                ui.content.innerHTML = html;
+            } catch (error) {
+                ui.showMessage('Error fetching document details: ' + error.message, true);
+            } finally {
+                ui.setLoading(false);
+            }
+        }
+
+        // Modal functions
+        function openModal() {
+            document.getElementById('fileModal').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+        }
+
+        function closeModal() {
+            document.getElementById('fileModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('fileModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Initial health check
+        fetch('/api/health').catch(error => {
+            const content = document.getElementById('content');
+            content.className = 'error-message';
+            content.textContent = `Server connection error: ${error.message}`;
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,498 @@
+<?xml version="1.0"?>
+<Response>
+	<Language>EN</Language>
+	<Process id="O2C">Order to Cash</Process>
+	<Product id="ERP">SAP ERP618</Product>
+	<InstallationNo>0020701049</InstallationNo>
+	<SystemId>ER6</SystemId>
+	<Client>800</Client>
+	<TimeZone>CET</TimeZone>
+	<Dictionary/>
+	<Cases>
+		<Case id="C-0000019069">
+			<DocGroup>
+				<Entity id="C">Order</Entity>
+				<Document id="0000019069">
+					<Header>
+						<Messages>
+							<Message type="Icon Order Confirm" ts="2023-03-20T06:21:00 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V1</Field>
+										<Field id="OBJKY">0000019069</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR">0000001000</Field>
+										<Field id="PARVW">AG</Field>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="Icon Order Confirm" ts="2023-02-21T13:00:31 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V1</Field>
+										<Field id="OBJKY">0000019069</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR">0000001000</Field>
+										<Field id="PARVW">AG</Field>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="Order Replicat (CoD)" ts="2023-03-20T06:21:00 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V1</Field>
+										<Field id="OBJKY">0000019069</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR"/>
+										<Field id="PARVW"/>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="Order Replicat (CoD)" ts="2023-02-21T13:00:31 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V1</Field>
+										<Field id="OBJKY">0000019069</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR"/>
+										<Field id="PARVW"/>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="SalesOrderConf (CoD)" ts="2023-02-21T13:00:31 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V1</Field>
+										<Field id="OBJKY">0000019069</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR"/>
+										<Field id="PARVW"/>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="Opport.conf (COD)" ts="2023-02-21T13:00:31 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V1</Field>
+										<Field id="OBJKY">0000019069</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR"/>
+										<Field id="PARVW"/>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="Order Confirmation" ts="2023-02-21T13:00:31 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V1</Field>
+										<Field id="OBJKY">0000019069</Field>
+										<Field id="SPRAS">D</Field>
+										<Field id="PARNR">0000001000</Field>
+										<Field id="PARVW">AG</Field>
+									</Fields>
+								</DataTable>
+							</Message>
+						</Messages>
+					</Header>
+					<Items>
+						<Item id="000010"/>
+					</Items>
+				</Document>
+			</DocGroup>
+		</Case>
+		<Case id="B-0020000271">
+			<DocGroup>
+				<Entity id="C">Order</Entity>
+				<Document id="0000019068">
+					<PrecEntity>B</PrecEntity>
+					<PrecDocNo>0020000271</PrecDocNo>
+					<Header>
+						<Messages>
+							<Message type="Icon Order Confirm" ts="2023-02-19T05:36:53 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V1</Field>
+										<Field id="OBJKY">0000019068</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR">0000001000</Field>
+										<Field id="PARVW">AG</Field>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="Icon Order Confirm" ts="2023-02-19T05:35:46 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V1</Field>
+										<Field id="OBJKY">0000019068</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR">0000001000</Field>
+										<Field id="PARVW">AG</Field>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="Icon Order Confirm" ts="2023-02-19T05:35:37 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V1</Field>
+										<Field id="OBJKY">0000019068</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR">0000001000</Field>
+										<Field id="PARVW">AG</Field>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="Icon Order Confirm" ts="2023-02-19T05:35:07 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V1</Field>
+										<Field id="OBJKY">0000019068</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR">0000001000</Field>
+										<Field id="PARVW">AG</Field>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="Icon Order Confirm" ts="2023-02-19T05:31:11 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V1</Field>
+										<Field id="OBJKY">0000019068</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR">0000001000</Field>
+										<Field id="PARVW">AG</Field>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="Order Replicat (CoD)" ts="2023-02-19T05:36:53 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V1</Field>
+										<Field id="OBJKY">0000019068</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR"/>
+										<Field id="PARVW"/>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="Order Replicat (CoD)" ts="2023-02-19T05:35:46 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V1</Field>
+										<Field id="OBJKY">0000019068</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR"/>
+										<Field id="PARVW"/>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="Order Replicat (CoD)" ts="2023-02-19T05:35:37 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V1</Field>
+										<Field id="OBJKY">0000019068</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR"/>
+										<Field id="PARVW"/>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="Order Replicat (CoD)" ts="2023-02-19T05:35:07 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V1</Field>
+										<Field id="OBJKY">0000019068</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR"/>
+										<Field id="PARVW"/>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="Order Replicat (CoD)" ts="2023-02-19T05:31:11 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V1</Field>
+										<Field id="OBJKY">0000019068</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR"/>
+										<Field id="PARVW"/>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="SalesOrderConf (CoD)" ts="2023-02-19T05:31:11 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V1</Field>
+										<Field id="OBJKY">0000019068</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR"/>
+										<Field id="PARVW"/>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="Opport.conf (COD)" ts="2023-02-19T05:31:11 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V1</Field>
+										<Field id="OBJKY">0000019068</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR"/>
+										<Field id="PARVW"/>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="Order Confirmation" ts="2023-02-19T05:31:11 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V1</Field>
+										<Field id="OBJKY">0000019068</Field>
+										<Field id="SPRAS">D</Field>
+										<Field id="PARNR">0000001000</Field>
+										<Field id="PARVW">AG</Field>
+									</Fields>
+								</DataTable>
+							</Message>
+						</Messages>
+					</Header>
+					<Items>
+						<Item id="000010"/>
+					</Items>
+				</Document>
+			</DocGroup>
+			<DocGroup>
+				<Entity id="B">Quotation</Entity>
+				<Document id="0020000271">
+					<Header>
+						<Messages>
+							<Message type="Sales Quote to C4C" ts="2023-02-19T05:10:27 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V1</Field>
+										<Field id="OBJKY">0020000271</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR"/>
+										<Field id="PARVW"/>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="Order Replicat (CoD)" ts="2023-02-19T05:10:27 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V1</Field>
+										<Field id="OBJKY">0020000271</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR"/>
+										<Field id="PARVW"/>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="Opport.conf (COD)" ts="2023-02-19T05:10:27 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V1</Field>
+										<Field id="OBJKY">0020000271</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR"/>
+										<Field id="PARVW"/>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="Quotation" ts="2023-02-19T05:10:27 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V1</Field>
+										<Field id="OBJKY">0020000271</Field>
+										<Field id="SPRAS">D</Field>
+										<Field id="PARNR">0000001000</Field>
+										<Field id="PARVW">AG</Field>
+									</Fields>
+								</DataTable>
+							</Message>
+						</Messages>
+					</Header>
+					<Items>
+						<Item id="000010"/>
+					</Items>
+				</Document>
+			</DocGroup>
+			<DocGroup>
+				<Entity id="J">Delivery</Entity>
+				<Document id="0080018917">
+					<PrecEntity>C</PrecEntity>
+					<PrecDocNo>0000019068</PrecDocNo>
+					<Header>
+						<Messages>
+							<Message type="Icon Delivery Note" ts="2023-02-21T12:19:32 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V2</Field>
+										<Field id="OBJKY">0080018917</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR">0000001000</Field>
+										<Field id="PARVW">WE</Field>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="Icon Delivery Note" ts="2023-02-21T12:18:04 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V2</Field>
+										<Field id="OBJKY">0080018917</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR">0000001000</Field>
+										<Field id="PARVW">WE</Field>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="Icon Delivery Note" ts="2023-02-21T12:12:02 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V2</Field>
+										<Field id="OBJKY">0080018917</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR">0000001000</Field>
+										<Field id="PARVW">WE</Field>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="Icon Delivery Note" ts="2023-02-21T12:11:11 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V2</Field>
+										<Field id="OBJKY">0080018917</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR">0000001000</Field>
+										<Field id="PARVW">WE</Field>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="Icon Delivery Note" ts="2023-02-21T12:10:45 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V2</Field>
+										<Field id="OBJKY">0080018917</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR">0000001000</Field>
+										<Field id="PARVW">WE</Field>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="Icon Delivery Note" ts="2023-02-21T12:09:47 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V2</Field>
+										<Field id="OBJKY">0080018917</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR">0000001000</Field>
+										<Field id="PARVW">WE</Field>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="Icon Delivery Note" ts="2023-02-21T11:51:52 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V2</Field>
+										<Field id="OBJKY">0080018917</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR">0000001000</Field>
+										<Field id="PARVW">WE</Field>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="TM Output" ts="2023-02-21T12:19:32 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V2</Field>
+										<Field id="OBJKY">0080018917</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR"/>
+										<Field id="PARVW"/>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="TM Output" ts="2023-02-21T12:18:04 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V2</Field>
+										<Field id="OBJKY">0080018917</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR"/>
+										<Field id="PARVW"/>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="TM Output" ts="2023-02-21T12:12:02 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V2</Field>
+										<Field id="OBJKY">0080018917</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR"/>
+										<Field id="PARVW"/>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="TM Output" ts="2023-02-21T12:11:11 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V2</Field>
+										<Field id="OBJKY">0080018917</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR"/>
+										<Field id="PARVW"/>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="TM Output" ts="2023-02-21T12:10:45 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V2</Field>
+										<Field id="OBJKY">0080018917</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR"/>
+										<Field id="PARVW"/>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="TM Output" ts="2023-02-21T12:09:47 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V2</Field>
+										<Field id="OBJKY">0080018917</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR"/>
+										<Field id="PARVW"/>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="TM Output" ts="2023-02-21T11:51:54 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V2</Field>
+										<Field id="OBJKY">0080018917</Field>
+										<Field id="SPRAS">E</Field>
+										<Field id="PARNR"/>
+										<Field id="PARVW"/>
+									</Fields>
+								</DataTable>
+							</Message>
+							<Message type="Delivery note" ts="2023-02-21T11:51:52 CET" user="U0000001">
+								<DataTable id="NAST">
+									<Fields>
+										<Field id="KAPPL">V2</Field>
+										<Field id="OBJKY">0080018917</Field>
+										<Field id="SPRAS">D</Field>
+										<Field id="PARNR">0000001000</Field>
+										<Field id="PARVW">WE</Field>
+									</Fields>
+								</DataTable>
+							</Message>
+						</Messages>
+					</Header>
+					<Items>
+						<Item id="000010"/>
+					</Items>
+				</Document>
+			</DocGroup>
+		</Case>
+	</Cases>
+</Response>

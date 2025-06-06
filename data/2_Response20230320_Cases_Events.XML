@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<Response>
+	<Language>EN</Language>
+	<Process id="O2C">Order to Cash</Process>
+	<Product id="ERP">SAP ERP618</Product>
+	<InstallationNo>0020701049</InstallationNo>
+	<SystemId>ER6</SystemId>
+	<Client>800</Client>
+	<TimeZone>CET</TimeZone>
+	<Dictionary/>
+	<Cases>
+		<Case id="C-0000019069">
+			<DocGroup>
+				<Entity id="C">Order</Entity>
+				<Document id="0000019069">
+					<Header>
+						<Events>
+							<Event type="Create" ts="2023-02-21T13:00:09 CET" transaction="VA01" user="U0000001"/>
+							<Event type="Change" ts="2023-03-20T06:21:01 CET" transaction="VA02" user="U0000001">
+								<Fields/>
+							</Event>
+						</Events>
+					</Header>
+					<Items>
+						<Item id="000010">
+							<Events>
+								<Event type="Create" ts="2023-02-21T13:00:30 CET" transaction="VA01" user="U0000001"/>
+								<Event type="Change" ts="2023-03-20T06:21:01 CET" transaction="VA02" user="U0000001">
+									<Fields/>
+								</Event>
+							</Events>
+						</Item>
+					</Items>
+				</Document>
+			</DocGroup>
+		</Case>
+		<Case id="B-0020000272">
+			<DocGroup>
+				<Entity id="B">Quotation</Entity>
+				<Document id="0020000272">
+					<Header>
+						<Events>
+							<Event type="Create" ts="2023-02-19T05:39:55 CET" transaction="VA21" user="U0000001"/>
+						</Events>
+					</Header>
+					<Items>
+						<Item id="000010">
+							<Events>
+								<Event type="Create" ts="2023-02-19T05:39:55 CET" transaction="VA21" user="U0000001"/>
+							</Events>
+						</Item>
+					</Items>
+				</Document>
+			</DocGroup>
+		</Case>
+		<Case id="B-0020000273">
+			<DocGroup>
+				<Entity id="C">Order</Entity>
+				<Document id="0000019070">
+					<PrecEntity>B</PrecEntity>
+					<PrecDocNo>0020000273</PrecDocNo>
+					<Header>
+						<Events>
+							<Event type="Create" ts="2023-03-03T08:39:09 CET" transaction="VA01" user="U0000002"/>
+						</Events>
+					</Header>
+					<Items>
+						<Item id="000010">
+							<Events>
+								<Event type="Create" ts="2023-03-03T08:39:09 CET" transaction="VA01" user="U0000002"/>
+							</Events>
+						</Item>
+					</Items>
+				</Document>
+				<Document id="0000019071">
+					<PrecEntity>B</PrecEntity>
+					<PrecDocNo>0020000273</PrecDocNo>
+					<Header>
+						<Events>
+							<Event type="Create" ts="2023-03-03T08:52:30 CET" transaction="VA01" user="U0000002"/>
+						</Events>
+					</Header>
+					<Items>
+						<Item id="000020">
+							<Events>
+								<Event type="Create" ts="2023-03-03T08:52:30 CET" transaction="VA01" user="U0000002"/>
+							</Events>
+						</Item>
+					</Items>
+				</Document>
+			</DocGroup>
+			<DocGroup>
+				<Entity id="B">Quotation</Entity>
+				<Document id="0020000273">
+					<Header>
+						<Events>
+							<Event type="Create" ts="2023-03-03T08:33:40 CET" transaction="VA21" user="U0000002"/>
+						</Events>
+					</Header>
+					<Items>
+						<Item id="000010">
+							<Events>
+								<Event type="Create" ts="2023-03-03T08:33:40 CET" transaction="VA21" user="U0000002"/>
+							</Events>
+						</Item>
+						<Item id="000020">
+							<Events>
+								<Event type="Create" ts="2023-03-03T08:33:40 CET" transaction="VA21" user="U0000002"/>
+							</Events>
+						</Item>
+					</Items>
+				</Document>
+			</DocGroup>
+		</Case>
+	</Cases>
+</Response>

@@ -1,0 +1,240 @@
+<Process>
+	<ID>O2C</ID>
+	<Product>ERP</Product>
+	<Entities>
+		<Identifiers>
+			<Type>DomVal</Type>
+			<Domain>VBTYP</Domain>
+		</Identifiers>
+		<LeadingEntities>
+			<EntityID>B</EntityID>
+			<EntityID>C</EntityID>
+		</LeadingEntities>
+	</Entities>
+	<ProcessStepsDescr>
+		<Status default='X'>
+			<DataTables>
+				<DataTable id='VBUK'>
+					<Fields>
+						<Field id='GBSTK'/>
+					</Fields>
+				</DataTable>
+			</DataTables>
+		</Status>
+		<Messages default='X'>
+			<DataTable id='NAST'>
+				<Fields>
+					<Field id='KAPPL' dom_val_from='TNAPR-KAPPL'/>
+					<Field id='OBJKY' source='VBELN'/>
+					<Field id='KSCHL' semantic='message_type' dom_val_from='TNAPR-KSCHL'/>
+					<Field id='SPRAS'/>
+					<Field id='PARNR'/>
+					<Field id='USNAM' semantic='user'/>
+					<Field id='PARVW' dom_val_from='VBPA-PARVW'/>
+					<Field id='ERDAT' semantic='crea_timestamp-date'/>
+					<Field id='ERUHR' semantic='crea_timestamp-time'/>
+				</Fields>
+			</DataTable>
+		</Messages>
+		<ProcessSteps>
+			<ProcessStep>
+				<EntityID>B</EntityID>
+				<Executables>
+					<Executable mod_type='create'>
+						<Type>TRAN</Type>
+						<ID>VA21</ID>
+						<Event>Create</Event>
+					</Executable>
+					<Executable mod_type='change'>
+						<Type>TRAN</Type>
+						<ID>VA22</ID>
+						<Event>Change</Event>
+					</Executable>
+				</Executables>
+				<HeaderDataTable>VBAK</HeaderDataTable>
+				<ItemDataTable>VBAP</ItemDataTable>
+				<ChangeObjectClass>VERKBELEG</ChangeObjectClass>
+				<Messages>
+					<DataTable id='NAST'>
+						<Fields>
+							<Field id='KAPPL'>V1</Field>
+						</Fields>
+					</DataTable>
+				</Messages>
+			</ProcessStep>
+			<ProcessStep>
+				<EntityID>C</EntityID>
+				<Executables>
+					<Executable mod_type='create'>
+						<Type>TRAN</Type>
+						<ID>VA01</ID>
+						<Event>Create</Event>
+					</Executable>
+					<Executable mod_type='change'>
+						<Type>TRAN</Type>
+						<ID>VA02</ID>
+						<Event>Change</Event>
+					</Executable>
+				</Executables>
+				<HeaderDataTable>VBAK</HeaderDataTable>
+				<ItemDataTable>VBAP</ItemDataTable>
+				<ChangeObjectClass>VERKBELEG</ChangeObjectClass>
+				<Messages>
+					<DataTable id='NAST'>
+						<Fields>
+							<Field id='KAPPL'>V1</Field>
+						</Fields>
+					</DataTable>
+				</Messages>
+			</ProcessStep>
+			<ProcessStep>
+				<EntityID>J</EntityID>
+				<Executables>
+					<Executable mod_type='create'>
+						<Type>TRAN</Type>
+						<ID>VL01</ID>
+						<Event>Create</Event>
+					</Executable>
+					<Executable mod_type='change'>
+						<Type>TRAN</Type>
+						<ID>VL02</ID>
+						<Event>Change</Event>
+					</Executable>
+				</Executables>
+				<HeaderDataTable>LIKP</HeaderDataTable>
+				<ItemDataTable>LIPS</ItemDataTable>
+				<ChangeObjectClass>LIEFERUNG</ChangeObjectClass>
+				<Messages>
+					<DataTable id='NAST'>
+						<Fields>
+							<Field id='KAPPL'>V2</Field>
+						</Fields>
+					</DataTable>
+				</Messages>
+			</ProcessStep>
+			<ProcessStep>
+				<EntityID>M</EntityID>
+				<Executables>
+					<Executable mod_type='create'>
+						<Type>TRAN</Type>
+						<ID>VF01</ID>
+						<Event>Create</Event>
+					</Executable>
+					<Executable mod_type='change'>
+						<Type>TRAN</Type>
+						<ID>VF02</ID>
+						<Event>Change</Event>
+					</Executable>
+				</Executables>
+				<HeaderDataTable>VBRK</HeaderDataTable>
+				<ItemDataTable>VBRP</ItemDataTable>
+				<ChangeObjectClass>FAKTBELEG</ChangeObjectClass>
+				<Messages>
+					<DataTable id='NAST'>
+						<Fields>
+							<Field id='KAPPL'>V2</Field>
+						</Fields>
+					</DataTable>
+				</Messages>
+			</ProcessStep>
+		</ProcessSteps>
+	</ProcessStepsDescr>
+	<ProcessFlow>
+		<DataTable id='VBFA'>
+			<PredecessorEntity>VBTYP_V</PredecessorEntity>
+			<SuccessorEntity>VBTYP_N</SuccessorEntity>
+			<PredecessorHeaderKey>VBELV</PredecessorHeaderKey>
+			<SuccessorHeaderKey>VBELN</SuccessorHeaderKey>
+			<PredecessorItemKey>POSNV</PredecessorItemKey>
+			<SuccessorItemKey>POSNN</SuccessorItemKey>
+		</DataTable>
+	</ProcessFlow>
+	<DataTables>
+		<DataTable id='VBUK' header_table='X'>
+			<Fields>
+				<Field id='VBELN' header_key='X'/>
+				<Field id='GBSTK' read_value_texts='X'/>
+			</Fields>
+		</DataTable>
+		<DataTable id='VBAK'>
+			<Fields>
+				<Field id='VBELN' header_key='X'/>
+				<Field id='VBTYP' entity_id='X'/>
+				<Field id='UPD_TMSTMP' semantic='change_timestamp'/>
+				<Field id='ERDAT' semantic='crea_timestamp-date'/>
+				<Field id='ERZET' semantic='crea_timestamp-time'/>
+				<Field id='ERNAM' semantic='crea_user'/>
+				<Field id='AUART' read_value_texts='X'/>
+				<Field id='AUDAT'/>
+			</Fields>
+		</DataTable>
+		<DataTable id='VBAP'>
+			<Fields>
+				<Field id='VBELN' header_key='X'/>
+				<Field id='POSNR' item_key='X'/>
+				<Field id='MATNR'/>
+				<Field id='MATKL'/>
+				<Field id='MEINS'/>
+				<Field id='NETPR'/>
+				<Field id='NETWR'/>
+				<Field id='SMENG'/>
+				<Field id='ERDAT' semantic='crea_timestamp-date'/>
+				<Field id='ERZET' semantic='crea_timestamp-time'/>
+				<Field id='ERNAM' semantic='crea_user'/>
+			</Fields>
+		</DataTable>
+		<DataTable id='VBRK'>
+			<Fields>
+				<Field id='VBELN' header_key='X'/>
+				<Field id='VBTYP' entity_id='X'/>
+				<Field id='AEDAT'/>
+				<Field id='ERDAT' semantic='crea_timestamp-date'/>
+				<Field id='ERZET' semantic='crea_timestamp-time'/>
+				<Field id='ERNAM' semantic='crea_user'/>
+				<Field id='FKDAT'/>
+				<Field id='FKART' read_value_texts='X'/>
+			</Fields>
+		</DataTable>
+		<DataTable id='VBRP'>
+			<Fields>
+				<Field id='VBELN' header_key='X'/>
+				<Field id='POSNR' item_key='X'/>
+				<Field id='NETWR'/>
+				<Field id='FKIMG'/>
+				<Field id='VRKME'/>
+				<Field id='MATNR'/>
+				<Field id='MATKL'/>
+				<Field id='ERDAT' semantic='crea_timestamp-date'/>
+				<Field id='ERZET' semantic='crea_timestamp-time'/>
+				<Field id='ERNAM' semantic='crea_user'/>
+			</Fields>
+		</DataTable>
+		<DataTable id='LIKP'>
+			<Fields>
+				<Field id='VBELN' header_key='X'/>
+				<Field id='VBTYP' entity_id='X'/>
+				<Field id='AEDAT'/>
+				<Field id='ERDAT' semantic='crea_timestamp-date'/>
+				<Field id='ERZET' semantic='crea_timestamp-time'/>
+				<Field id='ERNAM' semantic='crea_user'/>
+				<Field id='LFDAT'/>
+				<Field id='LFART' read_value_texts='X'/>
+			</Fields>
+		</DataTable>
+		<DataTable id='LIPS'>
+			<Fields>
+				<Field id='VBELN' header_key='X'/>
+				<Field id='POSNR' item_key='X'/>
+				<Field id='MATKL'/>
+				<Field id='LFIMG'/>
+				<Field id='VRKME'/>
+				<Field id='NETPR'/>
+				<Field id='NETWR'/>
+				<Field id='MATNR'/>
+				<Field id='ERDAT' semantic='crea_timestamp-date'/>
+				<Field id='ERZET' semantic='crea_timestamp-time'/>
+				<Field id='ERNAM' semantic='crea_user'/>
+			</Fields>
+		</DataTable>
+	</DataTables>
+</Process>

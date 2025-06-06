@@ -1,0 +1,11 @@
+TODO LIST
+=========
+#1
+Create a architecture check based on the rules 
+and save this in a new file named suggestions.txt. 
+Do make perform any code changes.
+
+
+
+
+Last Updated: [Current Date] 
